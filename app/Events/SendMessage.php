@@ -17,18 +17,21 @@ class SendMessage implements ShouldBroadcast
     public string $name;
     public string $message;
     public string $time;
+
     /**
      * Create a new event instance.
+     *
+     * @return void
      */
     public function __construct(string $name, string $message, string $time)
     {
         $this->name = $name;
-        $this->name = $message;
-        $this->name = $time;
+        $this->message = $message;
+        $this->time = $time;
     }
 
-    public function broadcastWith(){
-        return[
+    public function broadcastWith() {
+        return [
             "name" => $this->name,
             "message" => $this->message,
             "time" => $this->time
@@ -38,7 +41,7 @@ class SendMessage implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {

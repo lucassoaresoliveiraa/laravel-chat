@@ -42,8 +42,8 @@
             <div v-if="connected === true" class="card-body">
             <div class="col-12 bg-light pt-2 pb-2 mt-3">
                 <p class="p-0 m-0 ps-2 pe-2" v-for="(message, index) in incomingMessages">
-                    (@{{ message.time}}) <b> @{{ message.name}} </b>
-                    @{{message.message}}
+                    ( @{{ message.time}} ) <b> @{{ message.name}} </b>
+                    @{{ message.message}}
                 </p>
 
             </div>
@@ -85,9 +85,7 @@
 
                 pusher: null,
                 app: null,
-                apps: {
-                    !! json_encode($apps) !!
-                },
+                apps: <?php echo json_encode($apps) ?>,
                 logChannel: "{{ $logChannel}}",
                 authEndpoint: "{{ $authEndpoint}}",
                 host: "{{ $host}}",
@@ -153,9 +151,9 @@
                         .bind("log-message", (data)=>{
                           //  console.log(data);
                             if (data.type === "api-message"){
-                                if(data.datails.inclides("SendMessageEvent")){
+                                if (data.details.includes("SendMessageEvent")){
                                     let messageData = JSON.parse(data.data);
-                                    let utcDate = new Date(massageData.time);
+                                    let utcDate = new Date(messageData.time);
                                     messageData.time = utcDate.toLocaleDateString();
                                     inst.incomingMessages.push(messageData);
                                 }
